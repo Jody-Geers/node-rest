@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+    
+		<!-- use Mocha or another framework to unit test - not this. -->
+		
+		<!-- im just testing what i except to work -->
+		<!-- there are plenty cases where i except to test where i think things should not work -->
+		<!-- and in that case if the error is caught and correctly handled on the server, then it does work. -->
+		<!-- for example, try and get all of a data type which there are no controller for : http://localhost:8080/api/Animals -->
+		<title>Some Quick DIY Testing</title>
+		
+		<script src="jquery-1.11.1.min.js"></script>
+
+		<style>
+			/* page styling */
+			body {
+				color: #333;
+				font-family: arial;
+				font-size: 1em;
+			}
+			h4 {
+				font-size: 1.5em;
+				color: #1dade8;
+				font-weight: initial;
+				font-weight: lighter;
+				line-height: 0;
+				margin-top: 2em;
+			}
+			
+			/* return colors */
+			.test-passed {
+				color: #7ab636;
+			}
+			.test-failed {
+				color: #A51409;
+			}
+		</style>
+
+    </head>
+
+    <body>
+
+		<h4>Testing https://github.com/Jody-Geers/node-rest</h4>
+		<span>im just testing what i except to work</span><br/>
+		<span>there are plenty cases where i except to test where i think things should not work</span><br/>
+		<span>and in that case if the error is caught and correctly handled on the server, then it does work.</span><br/>
+		<span>for example, try and get all of a data type which there are no controller for : http://localhost:8080/api/Animals</span>
+
+    	<h4>GET - all</h4>
+    	<span>Should return array of items or empty array.</span><br/>
+    	<span>http://localhost:8080/api/Car</span><br/>
+    	<span id='get-all-res'>loading....</span>
+    	
+    	<h4>GET - by id</h4>
+    	<span>Should return the object or empty object.</span><br/>
+    	<span>http://localhost:8080/api/Car/1</span><br/>
+    	<span id='get-one-res'>loading....</span>
+    	
+    	<h4>GET - by params</h4>
+    	<span>Should return array of items or empty array.</span><br/>
+    	<span>http://localhost:8080/api/Car?car_model=m3</span><br/>
+    	<span id='get-param-res'>loading....</span>
+    	
+    	<h4>POST - update</h4>
+    	<span>Should update item based off primary key - return update meta.</span><br/>
+    	<span>http://localhost:8080/api/Car</span><br/>
+    	<span id='post-update-res'>loading....</span>
+    	
+    	<h4>POST - insert</h4>
+    	<span>Should insert item - return item as obj with its primary key.</span><br/>
+    	<span>http://localhost:8080/api/Car</span><br/>
+    	<span id='post-insert-res'>loading....</span>
+        
+    </body>
+    
+	<script>
+
+		/**
+		* GET - all
+		* Should return array of items or empty array.
+		* http://localhost:8080/api/Car
+		*/
+		_testGet( 'http://localhost:8080/api/Car', $( '#get-all-res' ) );
+		
+		/**
+		* GET - by id
+		* Should return the object or empty object.
+		* http://localhost:8080/api/Car/1
+		*/
+		_testGet( 'http://localhost:8080/api/Car/1', $( '#get-one-res' ) );
+		
+		/**
+		* GET - by params
+		* Should return array of items or empty array.
+		* http://localhost:8080/api/Car?car_model=m3
+		*/
+		_testGet( 'http://localhost:8080/api/Car?car_model=m3', $( '#get-param-res' ) );
+		
+		/**
+		* POST - update
+		* Should update item based off primary key - return update meta.
+		* http://localhost:8080/api/Car
+		*/
+		_testPost( 'http://localhost:8080/api/Car', $( '#post-update-res' ),{
+			car_id : 1,
+			car_make : 'was ford',
+			car_model : 'was ranger',
+			car_body : 'was xl'
+		});
+		
+		/**
+		* POST - insert
+		* Should insert item - return item as obj with its primary key.
+		* http://localhost:8080/api/Car
+		*/
+		_testPost( 'http://localhost:8080/api/Car', $( '#post-insert-res' ),{
+			car_make : 'nissan',
+			car_model : 'hardbody',
+			car_body : 'dbl cab'
+		});
+		
+		
+		/**
+		* send GET req to server
+		* @param {string} url - url to req
+		* @param {el} el - return res to
+		*/
+		function _testGet( url, el ) {
+		
+			$.ajax({
+				url: url
+			})
+			.done(function( res ) {
+				
+				$( el ).text( JSON.stringify( res ) ).addClass( 'test-passed' );
+				
+			})
+			.fail(function( jqXhr, textStatus ) {
+				
+				$( el ).text( jqXhr.responseText ).addClass( 'test-failed' );
+			
+			});
+			
+		}
+		
+		
+		/**
+		* send POST req to server
+		* @param {string} url - url to req
+		* @param {el} el - return res to
+		* @param {obj} data - the req contents
+		*/
+		function _testPost( url, el, data ) {
+		
+			$.ajax({
+				method: "POST",
+				url: url,
+				data: data
+			})
+			.done(function( res ) {
+				
+				$( el ).text( JSON.stringify( res ) ).addClass( 'test-passed' );
+				
+			})
+			.fail(function( jqXhr, textStatus ) {
+				
+				$( el ).text( jqXhr.responseText ).addClass( 'test-failed' );
+			
+			});
+			
+		}
+		
+	</script>
+
+</html>
