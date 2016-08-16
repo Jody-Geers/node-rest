@@ -22,24 +22,24 @@
 
   http://localhost:8080/test.html - Will test if everything up and running your side. Will also remind you of the API.
   
-  GET - all
-  Should return array of items or empty array.
+  GET - all<br/>
+  Should return array of items or empty array.<br/>
   http://localhost:8080/api/Car
   
-  GET - by id
-  Should return the object or empty object.
+  GET - by id<br/>
+  Should return the object or empty object.<br/>
   http://localhost:8080/api/Car/1
   
-  GET - by params
-  Should return array of items or empty array.
+  GET - by params<br/>
+  Should return array of items or empty array.<br/>
   http://localhost:8080/api/Car?car_model=m3
   
-  POST - update
-  Should update item based off primary key - return update meta.
+  POST - update<br/>
+  Should update item based off primary key - return update meta.<br/>
   http://localhost:8080/api/Car
   
-  POST - insert
-  Should insert item - return item as obj with its primary key.
+  POST - insert<br/>
+  Should insert item - return item as obj with its primary key.<br/>
   http://localhost:8080/api/Car
 
   
