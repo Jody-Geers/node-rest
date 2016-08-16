@@ -6,6 +6,9 @@
 
   Extendable to suite your needs. Index.js acts as the router / server. From then on out, data hits controller, based off incoming specifications controller asks service for data interaction and the model representation is used and or returned to client.
   
+  Note: I did not use HTTP delete - I update data and flag it as inactive as opposed to deleting it - Preference.
+  Note: I did not use HTTP put - I update data using post - Read on a stackoverflow put can be cross browser naughty.
+  
 ## Installation
 
   For now, 'git clone' this repo; npm install node-rest is coming.
